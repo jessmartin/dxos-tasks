@@ -20,6 +20,7 @@ export const TodoList = () => {
   const todos = useQuery<Todo>(space, Todo.filter());
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [editingTask, setEditingTask] = useState<number | null>(null);
+  const [showDeleteTask, setShowDeleteTask] = useState<number | null>(null);
 
   const handleNewTodo = () => {
     console.log(newTodoTitle);
@@ -38,14 +39,24 @@ export const TodoList = () => {
       {todos && (
         <ul>
           {todos.map((task, index) => (
-            <li key={index} className="flex items-center text-gray-700 mb-1">
+            <li
+              key={index}
+              className="flex items-center text-gray-700 mb-1"
+              onMouseOver={() => {
+                setShowDeleteTask(index);
+              }}
+              onMouseLeave={() => {
+                setShowDeleteTask(null);
+              }}
+            >
               <input
-                className="mr-2 rounded shadow"
+                className="mr-2 rounded shadow hover:pointer-cursor"
                 type="checkbox"
                 checked={task.completed}
                 onChange={() => (task.completed = !task.completed)}
               />
               <span
+                className="hover:pointer-cursor"
                 onClick={() => {
                   setEditingTask(index);
                 }}
@@ -66,16 +77,28 @@ export const TodoList = () => {
                       }}
                     />
                     <button
-                      className="mr-2 bg-white rounded shadow p-0 px-2 border-gray-400"
-                      onClick={() => {
+                      className="mr-2 bg-white rounded shadow p-0 px-2 border border-gray-400"
+                      onClick={(e) => {
+                        e.stopPropagation();
                         setEditingTask(null);
                       }}
                     >
-                      Save
+                      Done
                     </button>
                   </span>
                 ) : (
                   task.title
+                )}
+                {showDeleteTask === index && editingTask !== index && (
+                  <button
+                    className="bg-white rounded ml-2 p-0 px-2 hover:bg-gray-100 hover:cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      space.db.remove(task);
+                    }}
+                  >
+                    x
+                  </button>
                 )}
               </span>
             </li>
