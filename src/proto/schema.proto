@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package jessmartin.dxostasks;
+
+message Todo {
+  option (object) = true;
+
+  string title = 1;
+  bool completed = 2;
+}
