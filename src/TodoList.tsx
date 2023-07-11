@@ -1,22 +1,18 @@
-import { useIdentity, useQuery, useSpaces } from "@dxos/react-client";
+import {
+  ShellLayout,
+  useIdentity,
+  useQuery,
+  useSpaces,
+} from "@dxos/react-client";
 import React, { useEffect, useState } from "react";
 
 import { Todo } from "./proto";
-
-// Todo List:
-// 1. Log the user in and connect to a space
-// 2. Draw all of the todos from the space to the screen
-
-// Kanban Board:
-// 1. Get all of the todos from the space
-// 2. Draw the todos in columns: todo, done
-// 3. Add a "doing" column / status to the todos data model ***
-
-// Later: migrate the todos data model to have a Task List
+import { useShell } from "@dxos/react-shell";
 
 export const TodoList = () => {
   useIdentity({ login: true });
   const [space] = useSpaces();
+  const shell = useShell();
   const todos = useQuery<Todo>(space, Todo.filter());
   const [newTodoTitle, setNewTodoTitle] = useState("");
   const [editingTask, setEditingTask] = useState<number | null>(null);
@@ -33,6 +29,12 @@ export const TodoList = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <button
+        className="p-2"
+        onClick={() => shell.setLayout(ShellLayout.DEVICE_INVITATIONS)}
+      >
+        Device Invitations
+      </button>
       <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-2">
         Todo List
       </h1>

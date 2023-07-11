@@ -7,6 +7,7 @@ import {
   appkitTranslations,
 } from "@dxos/react-appkit";
 import { ClientProvider } from "@dxos/react-client";
+import { ShellProvider } from "@dxos/react-shell";
 import { Config, Dynamics, Local, Defaults } from "@dxos/config";
 import { useRegisterSW } from "virtual:pwa-register/react";
 import { ErrorBoundary } from "./ErrorBoundary";
@@ -27,8 +28,10 @@ export const App = () => {
         fallback={({ error }) => <ResetDialog error={error} config={config} />}
       >
         <ClientProvider config={config} fallback={GenericFallback}>
-          <TodoList />
-          <ServiceWorkerToastContainer {...serviceWorker} />
+          <ShellProvider>
+            <TodoList />
+            <ServiceWorkerToastContainer {...serviceWorker} />
+          </ShellProvider>
         </ClientProvider>
       </ErrorBoundary>
     </ThemeProvider>
