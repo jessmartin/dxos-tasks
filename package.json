@@ -7,8 +7,8 @@
     "build": "tsc --noEmit && NODE_OPTIONS=\"--max-old-space-size=4096\" vite build",
     "deploy": "NODE_OPTIONS=\"--max-old-space-size=4096\" dx app publish",
     "preview": "vite preview",
-    "prebuild": "dxtype src/proto/schema.proto src/proto/gen/schema.ts",
-    "serve": "npm run prebuild && vite",
+    "gen-schema": "dxtype src/proto/schema.proto src/proto/gen/schema.ts",
+    "serve": "npm run gen-schema && vite",
     "storybook": "start-storybook -p 9009 --no-open"
   },
   "dependencies": {
