@@ -36,15 +36,15 @@ export const TodoList = () => {
         Invite
       </button>
       <div className="max-w-sm mx-auto">
-        <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-2">
+        <h1 className="mt-3 text-3xl font-bold leading-tight text-gray-900 mb-2">
           Todo List
         </h1>
         {todos && (
-          <ul className="flex-row justify-center w-full">
+          <ul className="mb-2">
             {todos.map((task, index) => (
               <li
                 key={index}
-                className="flex items-center justify-between text-gray-700 max-w-md hover:bg-slate-100 rounded p-1"
+                className="flex items-center justify-between text-gray-700 max-w-md rounded p-1"
                 onMouseOver={() => {
                   setShowDeleteTask(index);
                 }}
@@ -65,9 +65,9 @@ export const TodoList = () => {
                   }}
                 >
                   {editingTask === index ? (
-                    <span>
+                    <span className="flex justify-between">
                       <input
-                        className="mr-2 rounded shadow p-0 px-2"
+                        className="mr-2 rounded shadow p-0 px-2 flex-grow"
                         type="text"
                         value={task.title}
                         onChange={(e) => {
@@ -109,9 +109,9 @@ export const TodoList = () => {
             ))}
           </ul>
         )}
-        <div className="mt-1">
+        <div className="flex items-center justify-between">
           <input
-            className="mr-2 rounded shadow"
+            className="mr-2 rounded shadow flex-grow"
             type="text"
             value={newTodoTitle}
             onChange={(e) => {
