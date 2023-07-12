@@ -28,23 +28,23 @@ export const TodoList = () => {
   };
 
   return (
-    <div>
+    <div className="p-2">
       <button
-        className="float-right bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow mt-2 mr-2"
+        className="float-right bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         onClick={() => shell.setLayout(ShellLayout.DEVICE_INVITATIONS)}
       >
         Invite
       </button>
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className="max-w-sm mx-auto">
         <h1 className="text-3xl font-bold leading-tight text-gray-900 mb-2">
           Todo List
         </h1>
         {todos && (
-          <ul>
+          <ul className="flex-row justify-center w-full">
             {todos.map((task, index) => (
               <li
                 key={index}
-                className="flex items-center text-gray-700 mb-1"
+                className="flex items-center justify-between text-gray-700 max-w-md hover:bg-slate-100 rounded p-1"
                 onMouseOver={() => {
                   setShowDeleteTask(index);
                 }}
@@ -59,7 +59,7 @@ export const TodoList = () => {
                   onChange={() => (task.completed = !task.completed)}
                 />
                 <span
-                  className="hover:pointer-cursor"
+                  className="hover:pointer-cursor flex-grow"
                   onClick={() => {
                     setEditingTask(index);
                   }}
@@ -78,6 +78,7 @@ export const TodoList = () => {
                             setEditingTask(null);
                           }
                         }}
+                        autoFocus
                       />
                       <button
                         className="mr-2 bg-white rounded shadow p-0 px-2 border border-gray-400"
@@ -92,18 +93,18 @@ export const TodoList = () => {
                   ) : (
                     task.title
                   )}
-                  {showDeleteTask === index && editingTask !== index && (
-                    <button
-                      className="bg-white rounded ml-2 p-0 px-2 hover:bg-gray-100 hover:cursor-pointer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        space.db.remove(task);
-                      }}
-                    >
-                      x
-                    </button>
-                  )}
                 </span>
+                {showDeleteTask === index && editingTask !== index && (
+                  <button
+                    className="bg-white rounded ml-2 p-0 px-2 hover:bg-gray-100 hover:cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      space.db.remove(task);
+                    }}
+                  >
+                    x
+                  </button>
+                )}
               </li>
             ))}
           </ul>
