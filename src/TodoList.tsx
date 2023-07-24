@@ -31,7 +31,12 @@ export const TodoList = () => {
     <div className="p-2">
       <button
         className="float-right bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        onClick={() => shell.setLayout(ShellLayout.DEVICE_INVITATIONS)}
+        onClick={() =>
+          shell.setLayout(
+            ShellLayout.SPACE_INVITATIONS,
+            space?.key && { spaceKey: space.key }
+          )
+        }
       >
         Invite
       </button>
